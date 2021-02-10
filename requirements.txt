@@ -1,6 +1,5 @@
 django~=3.1.2
 djangorestframework~=3.12.2
 pygments~=2.7.1
-numpy~=1.19.1
+numpy~=1.19.3
 dlib~=19.21.1
-pillow~=7.2.0
