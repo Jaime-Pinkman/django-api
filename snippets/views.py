@@ -3,14 +3,11 @@ from snippets.serializers import SnippetSerializer
 from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import numpy as np
 import urllib
-import json
-import cv2
 import os
 
 # define the path to the face detector
-FACE_DETECTOR_PATH = "{base_path}/cascades/haarcascade_frontalface_default.xml".format(
+"""FACE_DETECTOR_PATH = "{base_path}/cascades/haarcascade_frontalface_default.xml".format(
     base_path=os.path.abspath(os.path.dirname(__file__)))
 
 
@@ -67,7 +64,7 @@ def _grab_image(path=None, stream=None, url=None):
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
     # return the image
-    return image
+    return image"""
 
 
 class SnippetList(generics.ListCreateAPIView):
