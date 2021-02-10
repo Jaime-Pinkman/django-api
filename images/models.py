@@ -1,5 +1,4 @@
 from django.db import models
-from PIL import Image
 
 
 class Photo(models.Model):

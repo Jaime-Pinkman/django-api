@@ -11,7 +11,6 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FileUploadParser
 import json
-from PIL import Image
 from images.Frame import Frame
 
 
@@ -32,7 +31,6 @@ class UploadView(APIView):
         file = request.data.get('file', None)
         #print(file)
         if file:
-            img = Image.open(file)
             userFrame = Frame(path=file)
             userFrame.takeVector()
             userFrame.takeBiggestFace()
