@@ -5,11 +5,9 @@ RUN apt-get install -y build-essential cmake
 # for opencv
 RUN apt-get install -y libopencv-dev
 
-# pip instlal
-RUN apk update
-RUN apk add make automake gcc g++ subversion python3-dev
+# pip install
 RUN pip install --upgrade pip
-RUN pip install numpy==1.19.3
+RUN pip install numpy==1.20.1
 RUN pip install opencv-python
 RUN pip install dlib==19.17.0
 ENV PYTHONUNBUFFERED=1
