@@ -29,8 +29,8 @@ class Frame():
         self.chosen = None
 
     def preloadLibs(self):
-        self.sp = dlib.shape_predictor('../data/shape_predictor_68_face_landmarks.dat')
-        self.facerec = dlib.face_recognition_model_v1('../data/dlib_face_recognition_resnet_model_v1.dat')
+        self.sp = dlib.shape_predictor('/code/data/shape_predictor_68_face_landmarks.dat')
+        self.facerec = dlib.face_recognition_model_v1('/code/data/dlib_face_recognition_resnet_model_v1.dat')
         self.detector = dlib.get_frontal_face_detector()
 
     def takeFaceRect(self):
