@@ -21,16 +21,18 @@ class CheckImageView(APIView):
         if file:
             image = Photo.objects.create(image=file)
             face = find_save_face(image.image.path)
+            image.delete()
             if face is not None:
                 face_thresh = 0.6
                 start_point = 100
                 faces = Photo.objects.all()
                 index = -1
                 for i in range(len(faces)):
-                    dist = distance.euclidean(list(map(float, faces[i].portrait.split(','))), face.chosen["face_descriptor"])
-                    if dist < start_point:
-                        index = i
-                        start_point = dist
+                    if faces[i].portrait != '':
+                        dist = distance.euclidean(list(map(float, faces[i].portrait.split(','))), face.chosen["face_descriptor"])
+                        if dist < start_point:
+                            index = i
+                            start_point = dist
                 print(start_point)
                 if start_point < face_thresh:
                     print(faces[index].image)
@@ -52,6 +54,7 @@ class UploadView(APIView):
             face = find_save_face(image.image.path)
             if face is not None:
                 image.portrait = str(face.chosen["face_descriptor"]).replace("\n", ",")
+                image.save()
                 return Response(status=200)
             else:
                 image.delete()
