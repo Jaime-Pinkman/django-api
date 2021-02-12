@@ -3,3 +3,4 @@ djangorestframework~=3.12.2
 pygments~=2.7.1
 dlib~=19.21.1
 numpy~=1.19.1
+scipy~=1.6.0
