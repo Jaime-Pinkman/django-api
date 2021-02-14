@@ -18,7 +18,6 @@ class FaceRecognizer:
         self.compute_landmarks()
 
     def take_biggest_face(self):
-        """Поиск нужного лица (наибольшего)"""
         faces = self.detector(self.frame, 0)
         if len(faces) > 0:
             return max(faces, key=lambda x: x.area())
@@ -26,6 +25,5 @@ class FaceRecognizer:
             raise Exception("Отсутствует список лиц.")
 
     def compute_landmarks(self):
-        """Вычисляем facial landmarks в области наибольшего лица"""
         shape = self.sp(self.frame, self.take_biggest_face())
         self.portrait = self.face_rec.compute_face_descriptor(self.frame, shape)

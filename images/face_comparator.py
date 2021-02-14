@@ -2,6 +2,8 @@ from scipy.spatial import distance
 
 
 class FaceComparator:
+    """Сравнивает facial landmarks между собой через евклидово расстояние"""
+
     def __init__(self, portrait, faces, threshold=0.6):
         self.threshold = threshold
         self.portrait = portrait
