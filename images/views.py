@@ -1,37 +1,34 @@
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins, status
 from rest_framework.response import Response
 from images.models import Photo
-from rest_framework.views import APIView
-from images.face_recognizer import FaceRecognizer
-from images.face_comparator import FaceComparator
+from images.serializers import PhotoSerializer
 
 
-class CheckImageView(APIView):
-    def post(self, request):
-        file = request.data.get('file', None)
-        if file:
-            try:
-                face_rec = FaceRecognizer(file)
-            except Exception:
-                return Response({'face is detected': False}, status=400)
-            faces = Photo.objects.all()
-            if len(faces) > 0:
-                face_comp = FaceComparator(face_rec.portrait, faces)
-                return Response({'exists': face_comp.check_if_the_same_person()})
-            else:
-                return Response({'exists': False})
-        else:
-            return Response(status=400)
+class ImageViewSet(
+    mixins.CreateModelMixin,
+    GenericViewSet,
+):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    permission_classes = (AllowAny,)
 
+    @action(
+        methods=['post'],
+        detail=False,
+        url_path='search',
+        url_name='search-by-photo',
+    )
+    def search(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = {
+            'exists': Photo.search(serializer.data.get('portrait')),
+        }
 
-class UploadView(APIView):
-    def post(self, request):
-        file = request.data.get('file', None)
-        if file:
-            try:
-                face_rec = FaceRecognizer(file)
-            except Exception:
-                return Response({'face is detected': False}, status=400)
-            Photo.objects.create(image=file, portrait=str(face_rec.portrait).replace("\n", ","))
-            return Response({'face is detected', True}, status=200)
-        else:
-            return Response(status=400)
+        return Response(
+            data=data,
+            status=status.HTTP_200_OK,
+        )

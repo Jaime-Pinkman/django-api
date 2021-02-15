@@ -1,10 +1,11 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from images import views
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from images.views import ImageViewSet
+
+router = DefaultRouter(trailing_slash=True)
+
+router.register('photo', ImageViewSet, basename='photo')
 
 urlpatterns = [
-    path('upload/', views.UploadView.as_view(), name='file_upload'),
-    path('check/', views.CheckImageView.as_view(), name='file_check')
+    path('', include(router.urls)),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

@@ -22,7 +22,7 @@ class FaceRecognizer:
         if len(faces) > 0:
             return max(faces, key=lambda x: x.area())
         else:
-            raise Exception("Отсутствует список лиц.")
+            raise ValueError("Отсутствует список лиц.")
 
     def compute_landmarks(self):
         shape = self.sp(self.frame, self.take_biggest_face())
