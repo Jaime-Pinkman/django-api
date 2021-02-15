@@ -17,4 +17,5 @@ put your image in request body, form-data with key='file'
 git clone https://github.com/Jaime-Pinkman/django-api.git
 cd django-api
 docker-compose up -d --build
+docker-compose run web python manage.py migrate
 ```
