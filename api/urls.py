@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', include('snippets.urls')),
     path('', include('images.urls'))
 ]
 if settings.DEBUG:
