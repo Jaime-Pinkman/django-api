@@ -9,5 +9,8 @@ class Photo(models.Model):
     @classmethod
     def search(cls, portrait):
         faces = cls.objects.all()
-        face_comp = FaceComparator(portrait, faces)
-        return face_comp.check_if_the_same_person()
+        if len(faces) > 0:
+            face_comp = FaceComparator(portrait, faces)
+            return face_comp.check_if_the_same_person()
+        else:
+            return False
