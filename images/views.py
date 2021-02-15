@@ -14,8 +14,11 @@ class CheckImageView(APIView):
             except Exception:
                 return Response(status=400)
             faces = Photo.objects.all()
-            face_comp = FaceComparator(face_rec.portrait, faces)
-            return Response({'exists': face_comp.check_if_the_same_person()})
+            if len(faces) > 0:
+                face_comp = FaceComparator(face_rec.portrait, faces)
+                return Response({'exists': face_comp.check_if_the_same_person()})
+            else:
+                return Response({'exists': False})
 
 
 class UploadView(APIView):
