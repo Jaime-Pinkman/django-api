@@ -5,11 +5,10 @@ the database.
 
 ## Usage
 ```
-post request http://192.53.170.233:8000/upload - to upload an image
-post request http://192.53.170.233:8000/check - to check if an individual has been recognized
+post request http://192.53.170.233:8000/photo/ - to upload an image
+post request http://192.53.170.233:8000/photo/search/ - to check if an individual has been recognized
 
-put your image in request body, form-data with key='file'
-
+put your image in request body, form-data with key='image'
 ```
 
 ## Deployment
